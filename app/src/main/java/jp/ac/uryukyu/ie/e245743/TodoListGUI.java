@@ -1,8 +1,7 @@
 package jp.ac.uryukyu.ie.e245743;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.awt.FlowLayout;
 import java.awt.event.*;
 
@@ -13,14 +12,13 @@ public class TodoListGUI{
    */
   public void makeWindow(){
     /**
-     * TodoListを起動した際に表示されるウィンドウの作成とTodoListを終了させる際の処理を行う。
+     * Swingライブラリを用いて、TodoListを起動した際に表示されるウィンドウの作成とTodoListを終了させる際の処理を行う。
      */
 
     JFrame frame = new JFrame("TODOリスト"); //ウィンドウの作成
     frame.setSize(1366,768); //ウィンドウサイズを設定
 
     //ウィンドウに追加する部品を作成していく
-    JTextField writeTask = new JTextField(40);//タスクを入力する欄
     JButton addTask = new JButton("タスク追加"); //タスク追加ボタン
     JButton removeTask = new JButton("タスク削除");
     DefaultListModel<String> todoListData = new DefaultListModel<>();  //リストの内部データの管理
@@ -28,13 +26,23 @@ public class TodoListGUI{
 
     //panelに作成した部品を追加していく
     panel.add(new JList<>(todoListData));//リストを表示する部品
-    panel.add(new JLabel("\nタスクを入力し、タスク追加ボタンを押してください"));
-    panel.add(writeTask); 
     panel.add(addTask);
     panel.add(removeTask);
     panel.setLayout(new FlowLayout()); 
     frame.add(panel); //ウィンドウに部品をまとめたpanelを追加することで部品が表示されるようになる
     
+    //タスク追加を押した際の処理
+    addTask.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        String task = JOptionPane.showInputDialog(frame, "タスクを入力してください");
+        if (task != null && !task.strip().isEmpty()) {
+            todoListData.addElement(task);
+        } else {
+          JOptionPane.showMessageDialog(frame, "無効な値です","エラー",JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    });
+
     //Todoリストの終了処理
     frame.addWindowListener(new WindowAdapter(){
       @Override
@@ -52,5 +60,5 @@ public class TodoListGUI{
     todoListData.addElement("早起きする");
     todoListData.addElement("運動する");
     frame.setVisible(true); //ウィンドウを表示
-      }
-  };
+  }
+}
