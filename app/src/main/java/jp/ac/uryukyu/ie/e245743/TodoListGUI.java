@@ -43,6 +43,17 @@ public class TodoListGUI{
       }
     });
 
+    //タスク削除を押した際の処理
+    removeTask.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        String task = JOptionPane.showInputDialog(frame, "削除するタスクを入力してください");
+        if (task != null && !task.strip().isEmpty()) {
+            todoListData.removeElement(task);
+        } else {
+          JOptionPane.showMessageDialog(frame, "無効な値です","エラー",JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    });
     //Todoリストの終了処理
     frame.addWindowListener(new WindowAdapter(){
       @Override

@@ -1,2 +1,3 @@
 --first commit 簡易的なtodoリストのフロントエンドを作成
 --second commit タスク追加ボタンを押した際の処理を実装
+--third commit タスク削除ボタンを押した際の処理を実装ｎ
