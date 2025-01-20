@@ -36,11 +36,13 @@ public class EventManager {
       System.out.print("予定を入力してください:");
       scanner.nextLine(); //改行文字バッファを削除
       String inputEvent = scanner.nextLine();
+
       //Eventsリストに予定を追加する。
       this.Events.add(date + "---" + inputEvent);
       System.out.println("下記の予定を追加しました\n" + "---" + date + "---" + "\n"
         +inputEvent + "\n");
       System.out.println("現在の予定一覧を表示します");
+      
       int count = 0;
       for(String event : Events){
         count += 1;
