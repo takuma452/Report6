@@ -1,6 +1,7 @@
 package jp.ac.uryukyu.ie.e245743;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import java.time.DateTimeException;
@@ -41,8 +42,8 @@ public class EventManager {
       this.Events.add(date + "---" + inputEvent);
       System.out.println("下記の予定を追加しました\n" + "---" + date + "---" + "\n"
         +inputEvent + "\n");
+
       System.out.println("現在の予定一覧を表示します");
-      
       int count = 0;
       for(String event : Events){
         count += 1;
@@ -50,8 +51,9 @@ public class EventManager {
       }
     } catch(DateTimeException e){
       System.out.println("無効な日付です。再度お試しください。");
-      } catch(Exception e){
-      System.out.println("エラーが発生しました:" + e.getMessage());
+      } catch(InputMismatchException e){
+      System.out.println("無効な値です。数値を入力してください");
+      scanner.nextLine();//バッファを削除
       }
   }
 
@@ -65,12 +67,12 @@ public class EventManager {
         System.out.println("現在、予定がありません。");
         return;
       }
-      System.out.print("削除する予定の番号を選択してください。");
       int count = 0;
       for(String event : Events){
         count += 1;
         System.out.println(count + ":" + event + "\n");
       }
+      System.out.print("削除する予定の番号を選択してください。:");
       int number = scanner.nextInt();
       String removedEvent = Events.get(number - 1);
       //Eventsリストから指定の予定を削除する。
@@ -78,8 +80,9 @@ public class EventManager {
       System.out.println(removedEvent + "の予定を削除しました。");
       } catch(IndexOutOfBoundsException e){
         System.out.println("無効な値です。再度お試しください。");
-        } catch(Exception e){
-        System.out.println("エラーが発生しました。" + e.getMessage());
+        } catch(InputMismatchException e){
+        System.out.println("無効な値です。数値を入力してください");
+        scanner.nextLine();//バッファを削除
         }
   }
 
